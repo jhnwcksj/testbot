@@ -15,7 +15,7 @@ WEBHOOK_PATH = f'/webhook/{os.getenv("TOKEN2")}'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 bot = Bot(token=os.getenv('TOKEN2'))
-dp = Dispatcher(bot)
+dp = Dispatcher()
 
 async def on_start_webhook(request):
     data = await request.json()
