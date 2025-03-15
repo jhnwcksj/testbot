@@ -1,10 +1,10 @@
 import os
 import asyncio
-from aiogram import Bot, Dispatcher
+from aiogram import Bot
+from aiogram.bot import Application
 from dotenv import load_dotenv
-from aiohttp import web, ClientSession
+from aiohttp import web
 from aiogram.types import Update
-from aiogram import Application
 
 load_dotenv()
 
@@ -13,13 +13,12 @@ WEBHOOK_PATH = f'/webhook/{os.getenv("TOKEN2")}'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 bot = Bot(token=os.getenv('TOKEN2'))
-app = Application()
+app = Application(bot)
 
 async def set_webhook():
-    async with ClientSession() as session:
-        webhook_info = await bot.get_webhook_info()
-        print("Webhook info:", webhook_info)
-        await bot.set_webhook(WEBHOOK_URL)
+    webhook_info = await bot.get_webhook_info()
+    print("Webhook info:", webhook_info)
+    await bot.set_webhook(WEBHOOK_URL)
 
 async def on_start_webhook(request):
     data = await request.json()
@@ -28,12 +27,10 @@ async def on_start_webhook(request):
     return web.Response()
 
 async def main():
-    await async_main()
     await set_webhook()
     app.include_router(router)
 
 app_web = web.Application()
-
 app_web.router.add_post('/webhook/{token}', on_start_webhook)
 
 if __name__ == '__main__':
