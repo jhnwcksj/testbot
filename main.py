@@ -3,7 +3,6 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 from aiogram.types import Update
-from aiogram.utils.executor import start_webhook
 from aiohttp import web
 
 from app.handlers import router
