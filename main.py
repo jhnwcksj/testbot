@@ -23,7 +23,6 @@ dp = Dispatcher()
 async def on_start_webhook(request):
     data = await request.json()
     update = Update(**data)
-    await dp.process_update(update)
     return web.Response()
 
 async def main():
