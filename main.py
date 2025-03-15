@@ -10,7 +10,7 @@ from app.database.models import async_main
 
 load_dotenv()
 
-WEBHOOK_HOST = 'https://scottshopbot.onrender.com/'
+WEBHOOK_HOST = 'https://scottshopbot.onrender.com'
 WEBHOOK_PATH = f'/webhook/{os.getenv("TOKEN2")}'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
