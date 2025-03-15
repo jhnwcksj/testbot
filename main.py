@@ -14,10 +14,12 @@ WEBHOOK_HOST = 'https://scottshopbot.onrender.com'
 WEBHOOK_PATH = f'/webhook/{os.getenv("TOKEN2")}'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
-print(os.getenv("TOKEN2"))
 
 bot = Bot(token=os.getenv('TOKEN2'))
 dp = Dispatcher()
+
+webhook_info = await bot.get_webhook_info()
+print(webhook_info)
 
 async def on_start_webhook(request):
     data = await request.json()
@@ -29,8 +31,7 @@ async def main():
     await async_main() 
     dp.include_router(router)
     await bot.set_webhook(WEBHOOK_URL) 
-    webhook_info = await bot.get_webhook_info()
-    print(webhook_info)
+    
 
 app = web.Application()
 app.router.add_post('/webhook/{token}', on_start_webhook)
