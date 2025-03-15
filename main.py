@@ -10,31 +10,22 @@ from app.database.models import async_main
 
 load_dotenv()
 
-WEBHOOK_HOST = 'https://scottshopbot.onrender.com'
-WEBHOOK_PATH = f'/webhook/{os.getenv("TOKEN2")}'
-WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
-
-
 bot = Bot(token=os.getenv('TOKEN2'))
 dp = Dispatcher()
 
-
-
-async def on_start_webhook(request):
-    data = await request.json()
-    update = Update(**data)
-    return web.Response()
+async def get_updates():
+    updates = await bot.get_updates(offset=0, limit=100)
+    for update in updates:
+        await dp.process_update(update)
+    return updates
 
 async def main():
-    await async_main() 
-
+    await async_main()
     await bot.delete_webhook()
-    await bot.set_webhook(WEBHOOK_URL)
+    await get_updates()
     dp.include_router(router)
-    
 
 app = web.Application()
-app.router.add_post('/webhook/{token}', on_start_webhook)
 
 if __name__ == '__main__':
     try:
