@@ -4,7 +4,6 @@ from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 from aiogram.types import Update
 from aiohttp import web
-from aiogram.utils import web
 
 from app.handlers import router
 from app.database.models import async_main
