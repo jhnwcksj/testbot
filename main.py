@@ -18,8 +18,7 @@ WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 bot = Bot(token=os.getenv('TOKEN2'))
 dp = Dispatcher()
 
-webhook_info = await bot.get_webhook_info()
-print(webhook_info)
+
 
 async def on_start_webhook(request):
     data = await request.json()
@@ -29,8 +28,13 @@ async def on_start_webhook(request):
 
 async def main():
     await async_main() 
-    dp.include_router(router)
+
+    webhook_info = await bot.get_webhook_info()
+    print(webhook_info)
+    
     await bot.set_webhook(WEBHOOK_URL) 
+    
+    dp.include_router(router)
     
 
 app = web.Application()
