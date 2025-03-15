@@ -35,6 +35,6 @@ app.router.add_post('/webhook/{token}', on_start_webhook)
 
 if __name__ == '__main__':
     try:
-        web.run_app(app, host='35.160.120.126', port=8080)
+        web.run_app(app, host='0.0.0.0', port=8080)
     except KeyboardInterrupt:
         print('Exit')
