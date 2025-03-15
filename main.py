@@ -11,7 +11,7 @@ from app.database.models import async_main
 load_dotenv()
 
 WEBHOOK_HOST = 'https://scottshopbot.onrender.com/'
-WEBHOOK_PATH = f'/webhook/{os.getenv("TOKEN2")}'
+WEBHOOK_PATH = f'/webhook/7562686108:AAFFvhDbA4m_U1p7M11-v4x96Fbm95vqu7s}'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 bot = Bot(token=os.getenv('TOKEN2'))
