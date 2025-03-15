@@ -29,10 +29,8 @@ async def on_start_webhook(request):
 async def main():
     await async_main() 
 
-    webhook_info = await bot.get_webhook_info()
-    print(webhook_info)
-    await bot.set_webhook(WEBHOOK_URL) 
-    await dp.start_polling(bot)
+    await bot.delete_webhook()
+    await bot.set_webhook(WEBHOOK_URL)
     dp.include_router(router)
     
 
