@@ -3,6 +3,7 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 from aiogram.types import Update
+from aiogram.utils.executor import start_webhook
 from aiohttp import web
 
 from app.handlers import router
@@ -11,7 +12,7 @@ from app.database.models import async_main
 load_dotenv()
 
 WEBHOOK_HOST = 'https://scottshopbot.onrender.com/'
-WEBHOOK_PATH = f'/webhook/7562686108:AAFFvhDbA4m_U1p7M11-v4x96Fbm95vqu7s'
+WEBHOOK_PATH = f'/webhook/{os.getenv("TOKEN2")}'
 WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 bot = Bot(token=os.getenv('TOKEN2'))
@@ -27,6 +28,8 @@ async def main():
     await async_main() 
     dp.include_router(router)
     await bot.set_webhook(WEBHOOK_URL) 
+    webhook_info = await bot.get_webhook_info()
+    print(webhook_info)
 
 app = web.Application()
 app.router.add_post('/webhook/{token}', on_start_webhook)
