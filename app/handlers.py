@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 ADMIN_ID = int(os.getenv('ADMIN_ID',0))
+SUPPORT_ID = int(os.getenv('SUPPORT_ID',0))
 
 router = Router()
 
@@ -71,7 +72,7 @@ async def cmd_start(message: Message):
 
     if not user:
         await message.bot.send_message(
-                ADMIN_ID, 
+                SUPPORT_ID, 
                 text=f"Приветствуем нового пользователя\n\nID пользователя: <code>{message.from_user.id}</code>\nИмя: {message.from_user.full_name}\nПользователь: @{message.from_user.username}",
                 parse_mode="HTML",
             )
