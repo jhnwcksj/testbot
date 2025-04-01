@@ -68,14 +68,6 @@ class Promocode(StatesGroup):
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    user = await rq.get_user(message.from_user.id)
-
-    if not user:
-        await message.bot.send_message(
-                SUPPORT_ID, 
-                text=f"Приветствуем нового пользователя\n\nID пользователя: <code>{message.from_user.id}</code>\nИмя: {message.from_user.full_name}\nПользователь: @{message.from_user.username}",
-                parse_mode="HTML",
-            )
     
     await rq.set_user(message.from_user.id)
 
