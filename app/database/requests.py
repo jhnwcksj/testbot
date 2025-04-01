@@ -6,6 +6,9 @@ from sqlalchemy import select, update, delete
 from sqlalchemy import and_
 
 
+async def get_user(tg_id):
+    async with async_session() as session:
+        user = await session.scalar(select(User).where(User.tg_id == int(tg_id)))
 
 
 async def set_user(tg_id):
