@@ -67,6 +67,15 @@ class Promocode(StatesGroup):
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
+    user = rq.get_user(message.from_user.id)
+
+    if not user:
+        await message.bot.send_message(
+                ADMIN_ID, 
+                text=f"Приветствуем нового пользователя\n\nID пользователя: <code>{message.from_user.id}</code>\nИмя: {message.from_user.full_name}\nПользователь: @{message.from_user.username}",
+                parse_mode="HTML",
+            )
+    
     await rq.set_user(message.from_user.id)
 
     if message.from_user.id == ADMIN_ID:
@@ -467,10 +476,6 @@ async def get_photo_id(message : Message, state: FSMContext):
 
 @router.message(Command('my_id'))
 async def get_my_id(message : Message):
-    if message.from_user.id != ADMIN_ID:
-        await message.reply("У вас нет прав для этого действия.")
-        return
-
     await message.reply(f'Твой ID: {message.from_user.id}\nИмя: {message.from_user.first_name}\nПользователь: @{message.from_user.username}')
 
 
