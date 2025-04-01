@@ -68,7 +68,7 @@ class Promocode(StatesGroup):
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    user = rq.get_user(message.from_user.id)
+    user = await rq.get_user(message.from_user.id)
 
     if not user:
         await message.bot.send_message(
