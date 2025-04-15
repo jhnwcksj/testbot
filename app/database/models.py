@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-engine = create_async_engine(url=os.getenv('SQLALCHEMY_URL'))
+engine = create_async_engine(url=os.getenv('SQLALCHEMY_URL3'))
 
 async_session = async_sessionmaker(engine)
 
