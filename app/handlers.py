@@ -74,6 +74,12 @@ async def cmd_start(message: Message):
         await message.reply("Добро пожаловать администратор.",
                             parse_mode="HTML",
                             reply_markup=kb.main_admin)
+        
+    elif message.from_user.id == SUPPORT_ID:
+        await message.reply("Добро пожаловать Support.",
+                            parse_mode="HTML",
+                            reply_markup=kb.main_admin)
+    
     else:
         await message.answer_photo(photo='AgACAgIAAxkBAAMNZ9IEChbnZcD4iui7Whd_byZsz3gAAqTtMRviKJBKcE2KI1-H-8YBAAMCAAN5AAM2BA',
                         caption='👋<b>Добро пожаловать.</b>\n\nВпервые у нас? Тогда обязательно ознакомься 👇\n\nМы продаем материалы, которые будут полезны как и <b>для студентов</b>, так и <b>для начинающих программистов и дизайнеров</b> по <b>доступным ценам</b>. В клавиатуре снизу Вы можете воспользоваться меню.\n\n<b>🔥 Удачных покупок!</b>',
@@ -85,7 +91,7 @@ async def cmd_start(message: Message):
 
 @router.message(F.text == "🛠️ Команды администратора 🛠️")
 async def cmd_admin_commands(message : Message):
-    if message.from_user.id != ADMIN_ID:
+    if if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
         await message.reply("У вас нет прав для этого действия.")
         return
     
@@ -99,7 +105,7 @@ async def cmd_admin_commands(message : Message):
 @router.message(Command('add_new_item'))
 async def cmd_add_item(message: Message, state : FSMContext):
 
-    if message.from_user.id != ADMIN_ID:
+    if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
         await message.reply("У вас нет прав для этого действия.")
         return
     
@@ -233,7 +239,7 @@ async def confirm_material(message:Message,state:FSMContext):
 @router.message(Command('add_new_material'))
 async def cmd_add_material(message: Message, state : FSMContext):
 
-    if message.from_user.id != ADMIN_ID:
+    if if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
         await message.reply("У вас нет прав для этого действия.")
         return
     
