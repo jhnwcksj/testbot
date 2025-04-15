@@ -91,7 +91,7 @@ async def cmd_start(message: Message):
 
 @router.message(F.text == "🛠️ Команды администратора 🛠️")
 async def cmd_admin_commands(message : Message):
-    if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
+    if message.from_user.id != ADMIN_ID:
         await message.reply("У вас нет прав для этого действия.")
         return
     
@@ -105,7 +105,7 @@ async def cmd_admin_commands(message : Message):
 @router.message(Command('add_new_item'))
 async def cmd_add_item(message: Message, state : FSMContext):
 
-    if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
+    if message.from_user.id != ADMIN_ID:
         await message.reply("У вас нет прав для этого действия.")
         return
     
@@ -239,7 +239,7 @@ async def confirm_material(message:Message,state:FSMContext):
 @router.message(Command('add_new_material'))
 async def cmd_add_material(message: Message, state : FSMContext):
 
-    if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
+    if message.from_user.id != ADMIN_ID:
         await message.reply("У вас нет прав для этого действия.")
         return
     
