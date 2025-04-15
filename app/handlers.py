@@ -7,7 +7,6 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 
 
-
 import app.keyboards as kb
 import app.database.requests as rq
 
