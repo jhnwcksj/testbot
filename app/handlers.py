@@ -91,7 +91,7 @@ async def cmd_start(message: Message):
 
 @router.message(F.text == "🛠️ Команды администратора 🛠️")
 async def cmd_admin_commands(message : Message):
-    if if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
+    if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
         await message.reply("У вас нет прав для этого действия.")
         return
     
