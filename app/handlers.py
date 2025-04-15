@@ -239,7 +239,7 @@ async def confirm_material(message:Message,state:FSMContext):
 @router.message(Command('add_new_material'))
 async def cmd_add_material(message: Message, state : FSMContext):
 
-    if if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
+    if message.from_user.id != ADMIN_ID or message.from_user.id != SUPPORT_ID:
         await message.reply("У вас нет прав для этого действия.")
         return
     
