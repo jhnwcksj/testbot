@@ -172,7 +172,7 @@ admin_commands = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='/add_new_item'), KeyboardButton(text='/add_new_material'), KeyboardButton(text='/get_document')],
     [KeyboardButton(text='/send_document'), KeyboardButton(text='/confirm_order'), KeyboardButton(text='/cancel_order')],
     [KeyboardButton(text='/get_photo'), KeyboardButton(text='/get_document'), KeyboardButton(text='/send_photo')],
-    [KeyboardButton(text='/send_document'), KeyboardButton(text='/my_id')]
+    [KeyboardButton(text='/send_document'), KeyboardButton(text='/my_id'), KeyboardButton(text='/get_users')]
 
 ],
     resize_keyboard=True,
