@@ -21,8 +21,10 @@ async def set_user(tg_id):
         user = await session.scalar(select(User).where(User.tg_id == int(tg_id)))
 
         if not user:
-            session.add(User(tg_id = tg_id))
+            session.add(User(tg_id=tg_id))
             await session.commit()
+            return True  
+        return False  
 
 async def set_item(data):
     async with async_session() as session:
