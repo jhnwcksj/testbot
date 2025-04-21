@@ -10,6 +10,11 @@ async def get_user(tg_id):
     async with async_session() as session:
         user = await session.scalar(select(User).where(User.tg_id == int(tg_id)))
 
+async def get_all_users():
+    async with async_session() as session:
+        result = await session.execute(select(User))
+        users = result.scalars().all()
+        return users
 
 async def set_user(tg_id):
     async with async_session() as session:
