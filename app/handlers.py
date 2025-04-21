@@ -105,7 +105,7 @@ async def cmd_admin_commands(message : Message):
         await message.reply("У вас нет прав для этого действия.")
         return
     
-    await message.answer('Список комманд:\n\n<code>/add_new_item</code> - Добавить новый товар\n\n<code>/add_new_material</code> - Добавить материал к товару\n\n<code>/get_document</code> - Получить документ по ID\n\n<code>/send_document</code> - Скидывать документ и получить его ID\n\n<code>/confirm_order [ID заказа]</code> - Подтвердить заказ по ID\n\n<code>/cancel_order [ID заказа]</code> - Отменить заказ по ID\n\n<code>/get_photo</code> - Получить фото по ID\n\n<code>/get_document</code> - Получить документ по ID\n\n<code>/send_photo</code> - Отправить фото и получить его ID\n\n<code>/send_document</code> - Отправить документ и получить его ID',
+    await message.answer('Список комманд:\n\n<code>/get_users</code> - Показать всех пользователей\n\n<code>/add_new_item</code> - Добавить новый товар\n\n<code>/add_new_material</code> - Добавить материал к товару\n\n<code>/get_document</code> - Получить документ по ID\n\n<code>/send_document</code> - Скидывать документ и получить его ID\n\n<code>/confirm_order [ID заказа]</code> - Подтвердить заказ по ID\n\n<code>/cancel_order [ID заказа]</code> - Отменить заказ по ID\n\n<code>/get_photo</code> - Получить фото по ID\n\n<code>/get_document</code> - Получить документ по ID\n\n<code>/send_photo</code> - Отправить фото и получить его ID\n\n<code>/send_document</code> - Отправить документ и получить его ID',
                          parse_mode="HTML",
                          reply_markup=kb.admin_commands)
 
