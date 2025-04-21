@@ -119,19 +119,29 @@ async def get_users_handler(message: Message):
     if not users:
         return await message.answer("В базе данных пока нет пользователей.")
 
-    # Telegram ограничивает длину сообщений, разбиваем по частям, если что
     MAX_LENGTH = 4000
     text = "👥 <b>Список пользователей:</b>\n\n"
     messages_to_send = []
 
     for i, user in enumerate(users, 1):
+        try:
+            chat = await message.bot.get_chat(user.tg_id)
+            username = f"@{chat.username}" if chat.username else "—"
+            full_name = chat.full_name or "—"
+        except Exception as e:
+            username = "—"
+            full_name = "—"
+
         user_info = (
             f"<b>{i}.</b> ID: <code>{user.tg_id}</code>\n"
+            f"👤 Username: {username}\n"
+            f"📝 Fullname: {full_name}\n"
             f"📞 Телефон: {user.phone or '—'}\n"
             f"🎁 Промо: {user.is_promo}\n"
             f"Был промо: {user.was_promo}\n"
             f"🔖 Промокод: {user.promocode or '—'}\n\n"
         )
+
         if len(text) + len(user_info) > MAX_LENGTH:
             messages_to_send.append(text)
             text = ""
@@ -142,6 +152,7 @@ async def get_users_handler(message: Message):
 
     for part in messages_to_send:
         await message.answer(part, parse_mode="HTML")
+
 
 
 @router.message(Command('add_new_item'))
