@@ -68,7 +68,17 @@ class Promocode(StatesGroup):
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     
-    await rq.set_user(message.from_user.id)
+    isNew = await rq.set_user(message.from_user.id)
+
+    if isNew:
+        await message.bot.send_message(
+            ADMIN_ID,
+            f"<b>Приветствуем нового пользователя:</b>\n\n"
+            f"ID пользователя: {message.from_user.id}\n"
+            f"Имя: {message.from_user.full_name}\n"
+            f"Пользователь: @{message.from_user.username}",
+            parse_mode="HTML"
+        )
 
     if message.from_user.id == ADMIN_ID:
         await message.reply("Добро пожаловать администратор.",
@@ -99,7 +109,39 @@ async def cmd_admin_commands(message : Message):
                          parse_mode="HTML",
                          reply_markup=kb.admin_commands)
 
+@router.message(Command("get_users"))
+async def get_users_handler(message: Message):
+    if message.from_user.id != ADMIN_ID:
+        return await message.answer("⛔️ У вас нет доступа к этой команде.")
 
+    users = await rq.get_all_users()
+
+    if not users:
+        return await message.answer("В базе данных пока нет пользователей.")
+
+    # Telegram ограничивает длину сообщений, разбиваем по частям, если что
+    MAX_LENGTH = 4000
+    text = "👥 <b>Список пользователей:</b>\n\n"
+    messages_to_send = []
+
+    for i, user in enumerate(users, 1):
+        user_info = (
+            f"<b>{i}.</b> ID: <code>{user.tg_id}</code>\n"
+            f"📞 Телефон: {user.phone or '—'}\n"
+            f"🎁 Промо: {user.is_promo}\n"
+            f"Был промо: {user.was_promo}\n"
+            f"🔖 Промокод: {user.promocode or '—'}\n\n"
+        )
+        if len(text) + len(user_info) > MAX_LENGTH:
+            messages_to_send.append(text)
+            text = ""
+        text += user_info
+
+    if text:
+        messages_to_send.append(text)
+
+    for part in messages_to_send:
+        await message.answer(part, parse_mode="HTML")
 
 
 @router.message(Command('add_new_item'))
