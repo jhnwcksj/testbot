@@ -1021,6 +1021,12 @@ async def check_promo(message : Message, state : FSMContext):
             await rq.set_promo_used_count(message.text)
             await rq.set_user_used_promo(message.from_user.id,message.text)
             await message.answer(text=f"✅ Поздравляем! Вы получили {code.discount}тг бонуса для первого заказа!")
+
+            await message.bot.send_message(
+                ADMIN_ID, 
+                text=f"Данный пользователь активировал промокод\n\nID пользователя: <code>{message.from_user.id}</code>\nИмя: {message.from_user.full_name}\nПользователь: @{message.from_user.username}\nПромокод: <b>{message.text}</b>",
+                parse_mode="HTML",
+            )
             
         else:
             await message.answer("Данный промокод уже неактивен")
